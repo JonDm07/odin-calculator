@@ -96,12 +96,18 @@ numbers.forEach((number) => {
         if (result !== undefined && operation === "") {
             result += number.textContent
         }
+        
+        if (operation === "/" && secondNumber === "0") {
+            alert('Error 0: You tried dividing with 0')
+            secondNumber = ""
+        }
 
         if (result !== undefined) {
             display.textContent = `${result} ${operation} ${secondNumber}`
         } else {
             display.textContent = `${firstNumber} ${operation} ${secondNumber}`
         }
+
         
  
     })
