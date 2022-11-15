@@ -61,12 +61,16 @@ operators.forEach((operator) => {
             secondNumber = ""
 
         } else if (result !== "" && secondNumber !== "" && operation !== "") {
+            result = parseFloat(result)
             secondNumber = parseFloat(secondNumber)
             result = operate(operation, result, secondNumber)
             operation = ""
             operation += operator.textContent
             secondNumber = ""
+        }
 
+        if (operation !== "") {
+            operation = operator.textContent
         }
 
         if (result !== undefined) {
@@ -107,7 +111,6 @@ numbers.forEach((number) => {
         } else {
             display.textContent = `${firstNumber} ${operation} ${secondNumber}`
         }
-
         
  
     })
@@ -119,6 +122,7 @@ equalSign.addEventListener("click", () => {
     firstNumber = parseFloat(firstNumber)
     secondNumber = parseFloat(secondNumber)
     if (result !== undefined) {
+        result = parseFloat(result)
         showResult(operate(operation, result, secondNumber))
         result = operate(operation, result, secondNumber)
 
@@ -140,7 +144,36 @@ const clear = document.querySelector(".clear")
 
 clear.addEventListener("click", () => {
     display.textContent = ""
+    firstNumber = ""
+    secondNumber = ""
+    operation = ""
+    result = ""
 })
 
+const backspace = document.querySelector(".backspace")
 
+backspace.addEventListener("click", () => {
+    if (firstNumber !== "" && operation !== "" && secondNumber !== "") {
+        secondNumber = secondNumber.slice(0, -1)
+    } else if(firstNumber !== "" && operation !== "" && secondNumber === "") {
+        operation = operation.slice(0, -1)
+    } else if (firstNumber !== "" && operation === "" && secondNumber === "") {
+        firstNumber = firstNumber.slice(0, -1)
+    } else if (result !== "" && operation !== "" && secondNumber !== "") {
+        secondNumber = secondNumber.slice(0, -1)
+    } else if(result !== "" && operation !== "" && secondNumber === "") {
+        operation = operation.slice(0, -1)
+    } else if (result !== "" && operation === "" && secondNumber === "") {
+        result = result.slice(0, -1)
+    }
+        
+
+
+    if (result !== undefined) {
+        display.textContent = `${result} ${operation} ${secondNumber}`
+    } else {
+        display.textContent = `${firstNumber} ${operation} ${secondNumber}`
+    }
+    
+})
 
